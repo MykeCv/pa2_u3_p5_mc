@@ -18,6 +18,7 @@ public class DetalleFactura {
 	@GeneratedValue(generator = "seq_detalle_factura", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "seq_detalle_factura", sequenceName = "seq_detalle_factura", allocationSize = 1)
 	@Column(name = "defa_id")
+	
 	private Integer id;
 
 	@Column(name = "defa_cantidad")
@@ -32,6 +33,14 @@ public class DetalleFactura {
 	@ManyToOne
 	@JoinColumn(name = "defa_id_factura")
 	private Factura factura;
+	
+	
+
+	@Override
+	public String toString() {
+		return "DetalleFactura [id=" + id + ", cantidad=" + cantidad + ", codigoBarras=" + codigoBarras
+				+ ", nombreProducto=" + nombreProducto + "]";
+	}
 
 	// Set and gets
 	public Integer getId() {
