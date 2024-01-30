@@ -27,25 +27,27 @@ public class Pa2U3P5McApplication implements CommandLineRunner {
 		System.out.println("INNER JOIN");
 		List<Factura> lista = this.facturaService.buscarFacturasInnerJoin();
 		for (Factura f : lista) {
-			System.out.println(f);
-		}
-		System.out.println("RIGHT JOIN");
-		List<Factura> lista2 = this.facturaService.buscarFacturasRightJoin();
+			System.out.println(f.getNumero());
+//			for(DetalleFactura d: f.getDetalleFactura()) {
+//				System.out.println(d.getNombreProducto());
+//				}
+			}
+		
+		System.out.println("WHERE JOIN");
+		List<Factura> lista2 = this.facturaService.buscarFacturasWhereJoin();
 		for (Factura f : lista2) {
 			System.out.println(f.getNumero());
+			for(DetalleFactura d: f.getDetalleFactura()) {
+				System.out.println(d.getNombreProducto());
+				}
 		}
-		System.out.println("LEFT JOIN");
-		List<Factura> lista3 = this.facturaService.buscarFacturasLeftJoin();
+		
+		System.out.println("FETCH JOIN");
+		List<Factura> lista3 = this.facturaService.buscarFacturasFetchJoin();
 		for (Factura f : lista3) {
-			System.out.println(f);
-
-		}
-		System.out.println("FULL JOIN");
-		List<Factura> lista4 = this.facturaService.buscarFacturasFullJoin();
-		for (Factura f : lista4) {
-			System.out.println(f);
-			for (DetalleFactura d : f.getDetalleFactura()) {
-				System.out.println(d);
+			System.out.println(f.getNumero());
+			for(DetalleFactura d: f.getDetalleFactura()) {
+				System.out.println(d.getNombreProducto());
 			}
 		}
 	}
