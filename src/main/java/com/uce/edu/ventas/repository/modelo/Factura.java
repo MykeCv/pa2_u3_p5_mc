@@ -35,6 +35,10 @@ public class Factura {
 
 	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DetalleFactura> detalleFactura;
+	
+	//100 Atributos
+	//SELECT 2 columnas 
+	//SELECT 100 columnas
 
 	// ToString
 	@Override

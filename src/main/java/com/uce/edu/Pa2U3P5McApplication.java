@@ -1,5 +1,6 @@
 package com.uce.edu;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.ventas.repository.modelo.DetalleFactura;
-import com.uce.edu.ventas.repository.modelo.Factura;
+import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
 import com.uce.edu.ventas.service.IFacturaService;
 
 @SpringBootApplication
@@ -24,31 +24,29 @@ public class Pa2U3P5McApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("INNER JOIN");
-		List<Factura> lista = this.facturaService.buscarFacturasInnerJoin();
-		for (Factura f : lista) {
-			System.out.println(f.getNumero());
-//			for(DetalleFactura d: f.getDetalleFactura()) {
-//				System.out.println(d.getNombreProducto());
-//				}
-			}
-		
-		System.out.println("WHERE JOIN");
-		List<Factura> lista2 = this.facturaService.buscarFacturasWhereJoin();
-		for (Factura f : lista2) {
-			System.out.println(f.getNumero());
-			for(DetalleFactura d: f.getDetalleFactura()) {
-				System.out.println(d.getNombreProducto());
-				}
-		}
-		
-		System.out.println("FETCH JOIN");
-		List<Factura> lista3 = this.facturaService.buscarFacturasFetchJoin();
-		for (Factura f : lista3) {
-			System.out.println(f.getNumero());
-			for(DetalleFactura d: f.getDetalleFactura()) {
-				System.out.println(d.getNombreProducto());
-			}
+		System.out.println("UPDATE");
+
+		int cantidad = this.facturaService.actualizarFechas(LocalDateTime.of(2020, 1, 9, 12, 50),
+				LocalDateTime.of(2020, 1, 15, 12, 00));
+		System.out.println("Cantidad de registro actualizados");
+		System.out.println(cantidad);
+
+		System.out.println("DELETE");
+		int cantidad2 = this.facturaService.borrarPorNumero("-205170");
+		System.out.println("Cantidad de registro borrados");
+		System.out.println(cantidad2);
+
+		// System.err.println("DELETE NORMAL");
+		// this.facturaService.borrar(1);
+		// System.out.println("Cantidad de registro borrados normalmente");
+
+		// DTO: Data Transfer object:Patron de diseño para transferir datos mediante un
+		// objeto
+
+		System.out.println("BUSCAR FACTURADTO");
+		List<FacturaDTO> listaDTO = this.facturaService.buscarFacturasDTO();
+		for (FacturaDTO fdto : listaDTO) {
+			System.out.println(fdto);
 		}
 	}
 }
