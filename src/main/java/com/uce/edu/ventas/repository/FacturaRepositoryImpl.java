@@ -40,6 +40,33 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	@Transactional(value = TxType.NOT_SUPPORTED)
 	public Factura buscar(Integer id) {
 		return this.entityManager.find(Factura.class, id);
+
+		// (1)
+		// begin
+		// 1 ok
+		// 2 ok
+		// 3 exepction
+		// 4
+		// commit
+		// catch(){}
+		// sysout
+		// 4 cosas + 2 cosas = 6
+
+		// (2)
+		// begin
+		// 1 ok
+		// 2 ok
+		// 3 exepction
+		// 4
+		// commit
+		// catch(){}
+		// sysout
+
+		// begin
+		// 1. select
+		// 2. select
+		// 3. select
+		// commit
 	}
 
 	@Override
@@ -49,6 +76,15 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 				"SELECT NEW com.uce.edu.ventas.repository.modelo.dto.FacturaDTO(f.numero,f.fecha) FROM Factura f",
 				FacturaDTO.class);
 		return myQuery.getResultList();
+	}
+
+	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
+	public List<Factura> seleccionarTodos() {
+		// TODO Auto-generated method stub
+		TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f", Factura.class);
+		return myQuery.getResultList();
+
 	}
 
 }

@@ -10,4 +10,7 @@ public interface IFacturaRepository {
 	public void insertar(Factura factura);
 
 	public List<FacturaDTO> seleccionarFacturasDTO();
+
+	public List<Factura> seleccionarTodos();
+
 }
