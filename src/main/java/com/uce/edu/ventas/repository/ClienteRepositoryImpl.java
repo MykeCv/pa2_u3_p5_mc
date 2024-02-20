@@ -17,7 +17,7 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 	private EntityManager entityManager;
 
 	@Override
-	@Transactional(value = TxType.REQUIRES_NEW)//
+	//@Transactional(value = TxType.REQUIRES_NEW)//
 	//Todos los metodos repository deben ser MANDATORY
 	// begin
 	public void insertar(Cliente cliente) {
