@@ -1,5 +1,9 @@
 package com.uce.edu.funcional;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -108,6 +112,68 @@ public class Main {
 		Empleado empl3 = unaryOperator1.aplicar(e);
 		System.out.println(empl3);
 
+		System.out.println("******Implementacion de interfaces funcionales mediante librerias JAVA*******");
+
+		// 1. Supplier
+		Stream<String> lista = Stream.generate(() -> "1724362106" + " pais").limit(20);
+		lista.forEach(cadena -> System.out.println(cadena));
+
+		// 2. Consumer
+		System.out.println("Consumer JAVA");
+		List<Integer> listaNumeros = Arrays.asList(1, 2, 3, 4, 5, 67, 8, 5, 4, 85, 74);
+		listaNumeros.forEach(numero -> {
+			System.out.println("Se inserta");
+			System.out.println(numero);
+		});
+
+		// 3. Predicate
+		System.out.println("Predicate JAVA");
+		Stream<Integer> listaFiltrada = listaNumeros.stream().filter(numero -> {
+			return numero >= 10;
+		});
+		listaFiltrada.forEach(numero -> System.out.println(numero));
+
+		// 4. Function
+		System.out.println("Function JAVA");
+		Stream<String> listaCambiada = listaNumeros.stream().map(numero -> {
+			numero = numero * 100 / 50;// procesado
+			return "Num: " + numero.toString();
+		});
+		listaCambiada.forEach(cadena -> System.out.println(cadena));
+
+		Ciudadano ciud01 = new Ciudadano();
+		ciud01.setApellido("Cevallos");
+		ciud01.setNombre("Michael");
+		ciud01.setProvincia("Pichincha");
+
+		Ciudadano ciud02 = new Ciudadano();
+		ciud02.setApellido("Teran");
+		ciud02.setNombre("Daniel");
+		ciud02.setProvincia("Pichincha");
+
+		Ciudadano ciud03 = new Ciudadano();
+		ciud03.setApellido("Jacome");
+		ciud03.setNombre("Viviana");
+		ciud03.setProvincia("Pichincha");
+
+		List<Ciudadano> listaCiudadano = Arrays.asList(ciud01, ciud02, ciud03);
+		Stream<Empleado> listaEmpleados = listaCiudadano.stream().map(ciudadano -> {
+			Empleado empl = new Empleado();
+			empl.setNombreCompleto(ciudadano.getNombre() + " " + ciudadano.getApellido());
+			if (ciudadano.getProvincia().compareTo("Pichincha") == 0) {
+				empl.setPais("Ecuador");
+			}
+			return empl;
+		});
+		listaEmpleados.forEach(empleado -> System.out.println(empleado));
+
+		// 5. Unary Operator
+		System.out.println("Unary Operator JAVA");
+		Stream<Integer> listaNumeros2 = listaNumeros.stream().map(numero -> {
+			numero = numero * 100 / 50;// procesado
+			return numero;
+		});
+		listaNumeros2.forEach(numero -> System.out.println(numero));
 	}
 
 }
