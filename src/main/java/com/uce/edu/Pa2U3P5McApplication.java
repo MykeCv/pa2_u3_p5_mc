@@ -1,17 +1,16 @@
 package com.uce.edu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.uce.edu.ventas.repository.modelo.Cliente;
 import com.uce.edu.ventas.service.IClienteService;
 
 @SpringBootApplication
+@EnableAsync
 public class Pa2U3P5McApplication implements CommandLineRunner {
 
 	@Autowired
@@ -24,17 +23,7 @@ public class Pa2U3P5McApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		/*
-		 * System.out.println("Nombre Hilo: " + Thread.currentThread().getName()); long
-		 * tiempoInicial = System.currentTimeMillis(); for (int i = 1; i <= 10; i++) {
-		 * Cliente cliente = new Cliente(); cliente.setNombre("CN" + i);
-		 * cliente.setApellido("CA" + i); this.clienteService.guardar(cliente); } long
-		 * tiempoFinal = System.currentTimeMillis();
-		 * 
-		 * long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
-		 * System.out.println("Tiempo transcurrido en seg: " + tiempoTranscurrido); //
-		 * "Tiempo transcurrido en seg: 102"
-		 */
+		// "Tiempo transcurrido en seg: 102"
 
 		// Programacion en paralelo (multihielo - MultiThread)
 //		System.out.println("Nombre Hilo: " + Thread.currentThread().getName());
@@ -52,19 +41,34 @@ public class Pa2U3P5McApplication implements CommandLineRunner {
 //		System.out.println("Tiempo transcurrido en seg: " + tiempoTranscurrido);
 		// "Tiempo transcurrido en seg: 102"
 
+//		System.out.println("Nombre Hilo: " + Thread.currentThread().getName());
+//		long tiempoInicial = System.currentTimeMillis();
+//		List<Cliente> listaCliente = new ArrayList<>();
+//		for (int i = 1; i <= 100; i++) {
+//			Cliente cliente = new Cliente();
+//			cliente.setNombre("CN" + i);
+//			cliente.setApellido("CA" + i);
+//			listaCliente.add(cliente);
+//		}
+//		listaCliente.parallelStream().forEach(cliente -> this.clienteService.guardar(cliente));
+//		long tiempoFinal = System.currentTimeMillis();
+//		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
+//		System.out.println("Tiempo transcurrido en seg: " + tiempoTranscurrido);
+		// Tiempo transcurrido en seg: 15
+
 		System.out.println("Nombre Hilo: " + Thread.currentThread().getName());
 		long tiempoInicial = System.currentTimeMillis();
-		List<Cliente> listaCliente = new ArrayList<>();
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 500; i++) {
 			Cliente cliente = new Cliente();
 			cliente.setNombre("CN" + i);
 			cliente.setApellido("CA" + i);
-			listaCliente.add(cliente);
+			this.clienteService.guardar(cliente);//demora 1seg
 		}
-		listaCliente.parallelStream().forEach(cliente -> this.clienteService.guardar(cliente));
 		long tiempoFinal = System.currentTimeMillis();
-		long tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000;
-		System.out.println("Tiempo transcurrido en seg: " + tiempoTranscurrido);
 
+		long tiempoTranscurrido = (tiempoFinal - tiempoInicial);
+		System.out.println("Tiempo transcurrido en seg: " + tiempoTranscurrido);
+		System.out.println("Se ha mandado a procesar sus 500 clientes, puede continuar con sus actividades");
+		// Tiempo transcurrido en seg: 101
 	}
 }
